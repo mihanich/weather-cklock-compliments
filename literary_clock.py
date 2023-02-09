@@ -70,7 +70,6 @@ def main():
 
 	#Current Time
 	now = datetime.now()
-	hour_minute = now.strftime('%H%M')
 	now_time = now.strftime('%H:%M')
 	draw_time = ImageDraw.Draw(image)
 	time_font = ImageFont.truetype('Literata72pt-Regular.ttf', 144)
@@ -86,10 +85,10 @@ def redDraw():
 	now = datetime.now()
 	today = now.strftime('%a, %B, %d')
 	dayFont = ImageFont.truetype('Literata72pt-Regular.ttf', 72)
-	drawDate = ImageDraw.Draw(image)
+	drawDate = ImageDraw.Draw(imageRed)
 	drawDate.text((100, 20), today, font=dayFont, fill=0)
 
-	ImageDraw.Draw(imageRed).line([(0, 78), (800, 78)], fill=0, width=4)
+	ImageDraw.Draw(imageRed).line([(0, 270), (800, 270)], fill=0, width=5)
 	
 	return imageRed
 
