@@ -83,6 +83,7 @@ def redDraw():
 	imageRed = Image.new(mode='1', size=(800, 480), color=255)
 
 #Current date
+	now = datetime.now()
 	today = now.strftime('%a, %B, %d')
 	dayFont = ImageFont.truetype('Literata72pt-Regular.ttf', 72)
 	drawDate = ImageDraw.Draw(image)
