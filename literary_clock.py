@@ -56,7 +56,7 @@ def main():
 
 
 	image = Image.new(mode='1', size=(800, 480), color=255)
-
+	drawImage = ImageDraw.Draw(image)
 	
 	#Weather numbers
 	tempFont = ImageFont.truetype('Literata72pt-Regular.ttf', 72)
@@ -74,13 +74,11 @@ def main():
 	#Current date
 	today = now.strftime('%a, %B, %d')
 	dayFont = ImageFont.truetype('Literata72pt-Regular.ttf', 72)
-	drawImage = ImageDraw.Draw(image)
-	drawImage.text((100, 20), today, font=dayFont, fill=0)
-
-	ImageDraw.Draw(imageRed).line([(0, 78), (800, 78)], fill=0, width=4)
+	drawDate = ImageDraw.Draw(image)
+	drawDate.text((100, 20), today, font=dayFont, fill=0)
 
 	image = ImageOps.invert(image)
-	return image, imageRed
+	return image
 
 def redDraw():
 	imageRed = Image.new(mode='1', size=(800, 480), color=255)
@@ -88,6 +86,9 @@ def redDraw():
 	iconPath = 'icons/%s.xbm' % output_dict['ICON_ONE']
 	iconImage = ImageOps.invert(Image.open(iconPath).resize((100, 100)).convert('L'))
 	imageRed.paste(iconImage, (140, 370))
+
+	ImageDraw.Draw(imageRed).line([(0, 78), (800, 78)], fill=0, width=4)
+	
 	return imageRed
 
 if __name__ == '__main__':
