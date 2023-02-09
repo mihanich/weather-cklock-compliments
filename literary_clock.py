@@ -66,7 +66,7 @@ def main():
 	now_time = now.strftime('%H:%M')
 	draw_time = ImageDraw.Draw(image)
 	time_font = ImageFont.truetype('Literata72pt-Regular.ttf', 144)
-	draw_time.text((600, 150), now_time, font=time_font, fill=2)
+	draw_time.text((0, 280), now_time, font=time_font, fill=1)
 
 	today = now.strftime('%a, %B, %d')
 	dayFont = ImageFont.truetype('Literata72pt-Regular.ttf', 72)
