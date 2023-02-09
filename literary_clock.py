@@ -58,7 +58,7 @@ def main():
 	image = Image.new(mode='1', size=(800, 480), color=255)
 	iconPath = 'icons/%s.xbm' % output_dict['ICON_ONE']
 	iconImage = ImageOps.invert(Image.open(iconPath).resize((100, 100)).convert('L'))
-	image.paste(iconImage, (200, 300))
+	image.paste(iconImage, (140, 370))
 
 	now = datetime.now()
 	hour_minute = now.strftime('%H%M')
@@ -66,23 +66,23 @@ def main():
 	now_time = now.strftime('%H:%M')
 	draw_time = ImageDraw.Draw(image)
 	time_font = ImageFont.truetype('Literata72pt-Regular.ttf', 144)
-	draw_time.text((100, 100), now_time, font=time_font, fill=0)
+	draw_time.text((220, 100), now_time, font=time_font, fill=0)
 
 	today = now.strftime('%a, %B, %d')
 	dayFont = ImageFont.truetype('Literata72pt-Regular.ttf', 72)
 	drawImage = ImageDraw.Draw(image)
-	drawImage.text((100, 50), today, font=dayFont, fill=0)
+	drawImage.text((100, 20), today, font=dayFont, fill=0)
 	tempFont = ImageFont.truetype('Literata72pt-Regular.ttf', 72)
-	
-	temp = '%s / %s' % (output_dict['HIGH_ONE'], output_dict['LOW_ONE'])
-	drawImage.text((200, 300), temp, font=tempFont, fill=0)
 
+	temp = '%s / %s' % (output_dict['HIGH_ONE'], output_dict['LOW_ONE'])
+	drawImage.text((285, 365), temp, font=tempFont, fill=0)
 
 #lines code, maybe needed later
-#	drawImage.line([(0, 78), (800, 78)], fill=0, width=4)
-#	drawImage.line([(225, 0), (225, 78)], fill=0, width=4)
+#       drawImage.line([(0, 78), (800, 78)], fill=0, width=4)
+#       drawImage.line([(225, 0), (225, 78)], fill=0, width=4)
 	image = ImageOps.invert(image)
 	return image
+
 
 if __name__ == '__main__':
 	image = main()
