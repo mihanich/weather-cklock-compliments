@@ -66,16 +66,16 @@ def main():
 	now_time = now.strftime('%H:%M')
 	draw_time = ImageDraw.Draw(image)
 	time_font = ImageFont.truetype('Literata72pt-Regular.ttf', 144)
-	draw_time.text((150, 150), now_time, font=time_font, fill=1)
+	draw_time.text((100, 100), now_time, font=time_font, fill=0)
 
 	today = now.strftime('%a, %B, %d')
 	dayFont = ImageFont.truetype('Literata72pt-Regular.ttf', 72)
 	drawImage = ImageDraw.Draw(image)
-	drawImage.text((0, 0), today, font=dayFont, fill=0)
+	drawImage.text((10, 0), today, font=dayFont, fill=0)
 	tempFont = ImageFont.truetype('Literata72pt-Regular.ttf', 72)
 	
 	temp = '%s / %s' % (output_dict['HIGH_ONE'], output_dict['LOW_ONE'])
-	drawImage.text((100, 300), temp, font=tempFont, fill=0)
+	drawImage.text((200, 300), temp, font=tempFont, fill=0)
 
 
 #lines code, maybe needed later
