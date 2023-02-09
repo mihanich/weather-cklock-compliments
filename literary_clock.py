@@ -37,7 +37,7 @@ def main():
 		openweathermap_apikey,
 		location_lat,
 		location_long,
-		unit
+		"metric"
 	)
 
 	weather = weather_provider.get_weather()
