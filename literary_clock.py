@@ -61,27 +61,21 @@ def main():
 	now = datetime.now()
 	hour_minute = now.strftime('%H%M')
 
-	quotes_path = 'images/metadata/quote_%s_*_credits.png' % hour_minute
-	quotes = glob(quotes_path)
-	if len(quotes) == 0:
-		now_time = now.strftime('%H:%M')
-		draw_time = ImageDraw.Draw(image)
-		time_font = ImageFont.truetype('Literata72pt-Regular.ttf', 144)
-		draw_time.text((220, 150), now_time, font=time_font, fill=0)
-	else:
-		quote = quotes[randrange(0, len(quotes))]
-		quoteImage = Image.open(quote).convert('1')
-		image.paste(quoteImage, (0, 80))
+	now_time = now.strftime('%H:%M')
+	draw_time = ImageDraw.Draw(image)
+	time_font = ImageFont.truetype('Literata72pt-Regular.ttf', 144)
+	draw_time.text((220, 150), now_time, font=time_font, fill=0)
 
 	today = now.strftime('%a, %B, %d')
-	dayFont = ImageFont.truetype('Literata72pt-Regular.ttf', 48)
+	dayFont = ImageFont.truetype('Literata72pt-Regular.ttf', 72)
 	drawImage = ImageDraw.Draw(image)
 	drawImage.text((250, 10), today, font=dayFont, fill=0)
-	tempFont = ImageFont.truetype('Literata72pt-Regular.ttf', 24)
+	tempFont = ImageFont.truetype('Literata72pt-Regular.ttf', 72)
 	temp = '%s / %s' % (output_dict['HIGH_ONE'], output_dict['LOW_ONE'])
 	drawImage.text((100, 20), temp, font=tempFont, fill=0)
-	drawImage.line([(0, 78), (800, 78)], fill=0, width=4)
-	drawImage.line([(225, 0), (225, 78)], fill=0, width=4)
+#	drawImage.line([(0, 78), (800, 78)], fill=0, width=4)
+#	drawImage.line([(225, 0), (225, 78)], fill=0, width=4)
+	image = ImageOps.invert(image)
 	return image
 
 if __name__ == '__main__':
