@@ -13,7 +13,7 @@ libdir = "./lib/e-Paper/RaspberryPi_JetsonNano/python/lib"
 if os.path.exists(libdir):
     sys.path.append(libdir)
 
-from waveshare_epd import epd7in5_V2 as epd7in5
+from waveshare_epd import epd7in5b_V2 as epd7in5
 from weather_providers import openweathermap
 
 def format_weather_description(weather_description):
@@ -56,42 +56,46 @@ def main():
 
 
 	image = Image.new(mode='1', size=(800, 480), color=255)
+	imageRed = Image.new(mode='1', size=(800, 480), color=255)
+
+	#Weather icon
 	iconPath = 'icons/%s.xbm' % output_dict['ICON_ONE']
 	iconImage = ImageOps.invert(Image.open(iconPath).resize((100, 100)).convert('L'))
-	image.paste(iconImage, (140, 370))
+	imageRed.paste(iconImage, (140, 370))
+	#Weather numbers
+	tempFont = ImageFont.truetype('Literata72pt-Regular.ttf', 72)
+	temp = '%s / %s' % (output_dict['HIGH_ONE'], output_dict['LOW_ONE'])
+	drawImage.text((285, 365), temp, font=tempFont, fill=0)
 
+	#Current Time
 	now = datetime.now()
 	hour_minute = now.strftime('%H%M')
-
 	now_time = now.strftime('%H:%M')
 	draw_time = ImageDraw.Draw(image)
 	time_font = ImageFont.truetype('Literata72pt-Regular.ttf', 144)
 	draw_time.text((220, 100), now_time, font=time_font, fill=0)
 
+	#Current date
 	today = now.strftime('%a, %B, %d')
 	dayFont = ImageFont.truetype('Literata72pt-Regular.ttf', 72)
 	drawImage = ImageDraw.Draw(image)
 	drawImage.text((100, 20), today, font=dayFont, fill=0)
-	tempFont = ImageFont.truetype('Literata72pt-Regular.ttf', 72)
 
-	temp = '%s / %s' % (output_dict['HIGH_ONE'], output_dict['LOW_ONE'])
-	drawImage.text((285, 365), temp, font=tempFont, fill=0)
+	ImageDraw.Draw(imageRed).line([(0, 78), (800, 78)], fill=0, width=4)
 
-#lines code, maybe needed later
-#       drawImage.line([(0, 78), (800, 78)], fill=0, width=4)
-#       drawImage.line([(225, 0), (225, 78)], fill=0, width=4)
 	image = ImageOps.invert(image)
-	return image
+	return image, imageRed
 
 
 if __name__ == '__main__':
 	image = main()
+	imageRed = main()
 	try:
 		epd = epd7in5.EPD()
 		epd.init()
 		if datetime.now().minute == 0 and datetime.now().hour == 2:
 			epd.Clear()
-		epd.display(epd.getbuffer(image))
+		epd.display(epd.getbuffer(image), epd.getbuffer(imageRed))
 		epd.sleep()
 	
 	except IOError as e:
