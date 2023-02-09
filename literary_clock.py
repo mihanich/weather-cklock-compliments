@@ -66,15 +66,21 @@ def main():
 	now_time = now.strftime('%H:%M')
 	draw_time = ImageDraw.Draw(image)
 	time_font = ImageFont.truetype('Literata72pt-Regular.ttf', 144)
-	draw_time.text((220, 150), now_time, font=time_font, fill=0)
+	draw_time.text((220, 10), now_time, font=time_font, fill=0)
 
 	today = now.strftime('%a, %B, %d')
 	dayFont = ImageFont.truetype('Literata72pt-Regular.ttf', 72)
+
 	drawImage = ImageDraw.Draw(image)
-	drawImage.text((250, 10), today, font=dayFont, fill=0)
+
+	drawImage.text((250, 50), today, font=dayFont, fill=0)
 	tempFont = ImageFont.truetype('Literata72pt-Regular.ttf', 72)
+
 	temp = '%s / %s' % (output_dict['HIGH_ONE'], output_dict['LOW_ONE'])
-	drawImage.text((100, 20), temp, font=tempFont, fill=0)
+	drawImage.text((100, 200), temp, font=tempFont, fill=0)
+
+
+#lines code, maybe needed later
 #	drawImage.line([(0, 78), (800, 78)], fill=0, width=4)
 #	drawImage.line([(225, 0), (225, 78)], fill=0, width=4)
 	image = ImageOps.invert(image)
