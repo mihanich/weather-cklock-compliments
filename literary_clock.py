@@ -54,10 +54,6 @@ def main():
 		'WEATHER_DESC_2': weather_desc[2]
 	}
 
-
-	image = Image.new(mode='1', size=(800, 480), color=255)
-	imageRed = Image.new(mode='1', size=(800, 480), color=255)
-
 	#Weather icon
 	iconPath = 'icons/%s.xbm' % output_dict['ICON_ONE']
 	iconImage = ImageOps.invert(Image.open(iconPath).resize((100, 100)).convert('L'))
@@ -84,12 +80,6 @@ def main():
 	ImageDraw.Draw(imageRed).line([(0, 78), (800, 78)], fill=0, width=4)
 
 	image = ImageOps.invert(image)
-	return image, imageRed
-
-
-if __name__ == '__main__':
-	image = main()
-	imageRed = main()
 	try:
 		epd = epd7in5.EPD()
 		epd.init()
