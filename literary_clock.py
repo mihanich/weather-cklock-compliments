@@ -13,7 +13,7 @@ libdir = "./lib/e-Paper/RaspberryPi_JetsonNano/python/lib"
 if os.path.exists(libdir):
     sys.path.append(libdir)
 
-from waveshare_epd import epd7in5b_V2 as epd7in5
+from waveshare_epd import epd7in5_V2 as epd7in5
 from weather_providers import openweathermap
 
 def format_weather_description(weather_description):
@@ -75,32 +75,38 @@ def main():
 	time_font = ImageFont.truetype('Literata72pt-Regular.ttf', 144)
 	draw_time.text((220, 100), now_time, font=time_font, fill=0)
 
-	image = ImageOps.invert(image)
-	return image
-
-def redDraw():
-	imageRed = Image.new(mode='1', size=(800, 480), color=255)
-
-#Current date
 	now = datetime.now()
 	today = now.strftime('%a, %B, %d')
 	dayFont = ImageFont.truetype('Literata72pt-Regular.ttf', 72)
-	drawDate = ImageDraw.Draw(imageRed)
+	drawDate = ImageDraw.Draw(image)
 	drawDate.text((100, 20), today, font=dayFont, fill=0)
 
-	ImageDraw.Draw(imageRed).line([(0, 270), (800, 270)], fill=0, width=5)
-	
-	return imageRed
+	image = ImageOps.invert(image)
+	return image
+
+#def redDraw():
+#	imageRed = Image.new(mode='1', size=(800, 480), color=255)
+
+#Current date
+#	now = datetime.now()
+#	today = now.strftime('%a, %B, %d')
+#	dayFont = ImageFont.truetype('Literata72pt-Regular.ttf', 72)
+#	drawDate = ImageDraw.Draw(imageRed)
+#	drawDate.text((100, 20), today, font=dayFont, fill=0)
+#
+#	ImageDraw.Draw(imageRed).line([(0, 270), (800, 270)], fill=0, width=5)
+#	
+#	return imageRed
 
 if __name__ == '__main__':
 	image = main()
-	imageRed = redDraw()
+#	imageRed = redDraw()
 	try:
 		epd = epd7in5.EPD()
 		epd.init()
 		if datetime.now().minute == 0 and datetime.now().hour == 2:
 			epd.Clear()
-		epd.display(epd.getbuffer(image), epd.getbuffer(imageRed))
+		epd.display(epd.getbuffer(image))
 		epd.sleep()
 	
 	except IOError as e:
