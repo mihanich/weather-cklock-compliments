@@ -61,7 +61,7 @@ def main():
 	#Weather icon
 	iconPath = 'icons/%s.xbm' % output_dict['ICON_ONE']
 	iconImage = ImageOps.invert(Image.open(iconPath).resize((100, 100)).convert('L'))
-	imageRed.paste(iconImage, (140, 370))
+	image.paste(iconImage, (140, 370))
 	
 	#Weather numbers
 	tempFont = ImageFont.truetype('Literata72pt-Regular.ttf', 72)
