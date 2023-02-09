@@ -1,6 +1,7 @@
 import os
 import textwrap
 import sys
+import weather_env
 
 from datetime import datetime
 from glob import glob
@@ -27,20 +28,21 @@ def format_weather_description(weather_description):
 
 def main():
 
-	openweathermap_apikey = os.getenv("OPENWEATHERMAP_APIKEY")
-	location_lat = os.getenv("WEATHER_LATITUDE")
-	location_long = os.getenv("WEATHER_LONGITUDE")
+	openweathermap_apikey = weather_env.OPENWEATHERMAP_APIKEY
+	location_lat = weather_env.WEATHER_LATITUDE
+	location_long = weather_env.WEATHER_LONGITUDE
+	unit = weather_env.WEATHER_FORMAT
 
 	weather_provider = openweathermap.OpenWeatherMap(
 		openweathermap_apikey,
 		location_lat,
 		location_long,
-		"imperial"
+		unit
 	)
 
 	weather = weather_provider.get_weather()
 
-	degrees = "°F"
+	degrees = "°C"
 
 	weather_desc = format_weather_description(weather["description"])
 
